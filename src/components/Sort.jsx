@@ -1,12 +1,18 @@
 import React from "react";
 
-function Sort() {
+function Sort({value, onChangeType}) {
     const [isVisible, setIsVisible] = React.useState(false);
-    const [selectedItem, setSelectedItem] = React.useState(0);
-    const list = ['популярности', 'цене', 'алфавиту'];
-    const sortName = list[selectedItem];
+    const list = [
+        {name: "популярности desc", sortProperty: 'rating'},
+        {name: "популярности asc", sortProperty: '-rating'},
+        {name: "цене desc", sortProperty: 'price'},
+        {name: "цене ask", sortProperty: '-price'},
+        {name: "алфавиту desc", sortProperty: 'title'},
+        {name: "алфавиту ask", sortProperty: '-title'},
+    ];
+
     const onClickListItem = (index) => {
-        setSelectedItem(index)
+        onChangeType(index)
         setIsVisible(false)
     };
 
@@ -25,19 +31,19 @@ function Sort() {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsVisible(!isVisible)}>{sortName}</span>
+                <span onClick={() => setIsVisible(!isVisible)}>{value.name}</span>
             </div>
             {
                 isVisible && (
                     <div className="sort__popup">
                         <ul>
                             {
-                                list.map((name, index) => (
+                                list.map((obj, index) => (
                                     <li key={index}
-                                        className={selectedItem === index ? 'active' : ''}
+                                        className={value.sortProperty === obj.sortProperty ? 'active' : ''}
                                         onClick={() => {
-                                            onClickListItem(index)
-                                        }}>{name}</li>
+                                            onClickListItem(obj)
+                                        }}>{obj.name}</li>
                                 ))
                             }
                         </ul>

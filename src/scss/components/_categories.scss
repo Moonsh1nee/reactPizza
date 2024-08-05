@@ -1,31 +1,51 @@
-@import '../variables';
+@import "../variables";
 
 .categories {
-  ul {
-    display: flex;
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+  padding-bottom: 20px;
 
-    li {
-      background-color: #f9f9f9;
-      padding: 13px 30px;
-      border-radius: 30px;
-      margin-right: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.1s ease-in-out;
-      @include noselect();
+  li {
+    background-color: #f9f9f9;
+    padding: 13px 30px;
+    border-radius: 30px;
+    margin-right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.1s ease-in-out;
+    @include noselect();
 
-      &:hover {
-        background-color: darken(#f9f9f9, 2%);
-      }
+    &:hover {
+      background-color: darken(#f9f9f9, 2%);
+    }
 
-      &:active {
-        background-color: darken(#f9f9f9, 5%);
-      }
+    &:active {
+      background-color: darken(#f9f9f9, 5%);
+    }
 
-      &.active {
-        background-color: #282828;
-        color: #fff;
-      }
+    &.active {
+      background-color: #282828;
+      color: #fff;
     }
   }
 }
+
+
+    .categories::-webkit-scrollbar {
+      height: 3px;
+      width: 10px;
+      background-color: #f9f9fd;
+    }
+
+    .categories::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #4a4e4e;
+    }
+
+    .categories::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      background-color: #f9f9fd;
+    }
+  
