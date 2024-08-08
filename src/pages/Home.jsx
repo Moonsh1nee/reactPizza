@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from "axios";
 import Categories from "../components/Categories";
 import Sort from "../components/Sort";
 import Skeleton from "../components/PizzaBlock/Skeleton";
@@ -19,15 +20,14 @@ const Home = () => {
 
     React.useEffect(() => {
         setIsLoading(true);
-        fetch(`https://66abf324f009b9d5c730c4e6.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`)
+        axios
+            .get(`https://66abf324f009b9d5c730c4e6.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`)
             .then((res) => {
-                return res.json();
-            }).then((arr) => {
-            setItems(arr);
-            setIsLoading(false)
-        });
+                setItems(res.data);
+                setIsLoading(false);
+            })
         window.scrollTo(0, 0);
-    }, [categoryId, sort, searchValue])
+    }, [categoryId, sort.sortProperty, searchValue])
 
     const skeletons = [...new Array(6)].map((_, index) => (<Skeleton key={index}/>));
     const pizzas = items
@@ -40,7 +40,7 @@ const Home = () => {
         <div className='container'>
             <div className="content__top">
                 <Categories/>
-                <Sort />
+                <Sort/>
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
